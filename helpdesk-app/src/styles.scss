@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+}
+
+.register-container {
+    background-color: rgb(30, 31, 37);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .register-wrapper {
+        border: 1px solid rgb(89, 94, 110);
+        padding: 30px 50px;
+        border-radius: 10px;
+        display: flex;
+        width: 300px;
+        gap: 10px;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+        background-color: rgb(42, 44, 53);
+
+        .title {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .sub-title {
+            font-size: 16px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 250px;
+
+            input {
+                padding: 5px;
+                border: none;
+                border-bottom: 1px solid white;
+                background-color: rgb(42, 44, 53);
+                color: white;
+                outline-style: none;
+                &::placeholder {
+                    color: rgb(128, 128, 128);
+                }
+            }
+
+            button {
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: rgb(55, 141, 62);
+                color: white;
+                font-weight: bold;
+                transition-duration: 0.125s;
+               
+
+                &:hover {
+                    background-color: rgb(71, 182, 81);
+                }
+            }
+
+            .anon-signin {
+                background-color: rgb(72, 80, 109);
+                &:hover {
+                    background-color: rgb(90, 100, 138);
+                }
+            }
+
+            p {
+                text-align: center;
+            }
+        }
+
+        .signin-instead {
+            font-size: 14px;
+            color: cornflowerblue;
+        }
+    }
+}
