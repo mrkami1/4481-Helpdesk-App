@@ -43,7 +43,6 @@ body {
                 border-bottom: 1px solid white;
                 background-color: rgb(42, 44, 53);
                 color: white;
-                outline-style: none;
                 &::placeholder {
                     color: rgb(128, 128, 128);
                 }
@@ -82,3 +81,280 @@ body {
         }
     }
 }
+
+.navbar-container {
+    height: 40px;
+    width: 100%;
+    background-color: rgb(39, 40, 48);
+    position: absolute;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    .navbar {
+        height: 100%;
+        
+        .logo {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            top: 7px;
+            left: 10px;
+    
+            i {
+                position: absolute;
+                font-size: 18px;
+                top: 3px;
+                left: 40px;
+            }
+    
+        }
+
+        .menu {
+            color: rgb(128, 128, 128);
+            transition-duration: 0.125s;
+            height: 100%;
+            float: right;
+            padding-top: 8px;
+            padding-right: 10px;
+    
+            i { 
+                font-size: 20px;
+                &:hover {
+                    color: white;
+                }
+            }
+        }
+    
+        .user {
+            color: white;
+            height: 100%;
+            float: right;
+            padding-top: 8px;
+            padding-right: 20px;
+        }
+    }
+}
+
+.main-container {
+    height: calc(100vh - 40px);
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .main-wrapper {
+        background-color: rgb(61, 63, 75);
+        height: 100%;
+        width: 100vw;
+        display: flex;
+
+        .sidebar { 
+            width: 300px;
+            background-color: rgb(54, 55, 68);
+            ::-webkit-scrollbar {
+                width: 5px;
+            }
+            ::-webkit-scrollbar-thumb {
+               background: #525252;
+               border-radius: 2px; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #7c7c7c; 
+            }
+
+            .title-container {
+                display: block;
+                padding: 10px;
+
+                span {
+                    display: block;
+                    text-align: center;
+                    padding-bottom: 5px;
+                    padding-top: 5px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: rgb(126, 128, 156);
+                    background-color: rgb(39, 40, 48);
+                    border-radius: 5px;
+                }
+            }
+            
+            .chats-container {
+                width: 100%;
+                height: calc(100% - 54px);
+                
+                .chats-wrapper {
+                    width: calc(100% - 20px);
+                    height: calc(100% - 10px);
+                    position: relative;
+                    left: 10px;
+                    border-radius: 5px;
+                    overflow: auto;
+                    background-color: rgb(39, 40, 48);
+
+                    .chats {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        
+                        .user-chat {
+                            margin-top: 5px;
+                            width: calc(100% - 10px);
+                            border-radius: 5px;
+                            background-color: rgb(61, 63, 75);
+                            overflow-x: hidden;
+                            
+                            .picture {
+                                float: left;
+
+                                img {
+                                    margin-top: 4px;
+                                    margin-left: 5px;
+                                    display: inline-block;
+                                }
+                            }
+
+                            .name {
+                                float: right;
+                                width: 50%;
+
+                                .username {
+                                    font-family:Arial, Helvetica, sans-serif;
+                                    position: relative;
+                                    display: inline-block;
+                                    top: 5px;
+                                    right: 70px;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: rgb(255, 255, 255);  
+                                }
+                            }
+
+                            .status {
+                                float: right;
+                                width: 50%;
+                                
+                                .userStatus {
+                                    display: inline-block;
+                                    position: relative;
+                                    right: 70px;
+                                    top: 5px;
+                                    color: #888888;
+                                    
+                                    .statusCircle {
+                                        display: inline-block;
+                                        position: relative;
+                                        width: 7px;
+                                        height: 7px;
+                                        border-radius: 5px;
+                                        background-color: rgb(0, 179, 0);
+                                        bottom: 1px;
+                                    }
+                                }
+                            }
+
+                            .unread {
+                                float: right;
+                                width: 25px;
+                                height: 25px;
+
+                                i {
+                                    position: relative;
+                                    left: 117px;
+                                    bottom: 8px;
+                                    font-size: 24px;
+                                    color: rgb(131, 77, 77);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        .chatbox-container {
+            flex: 2;
+            overflow: auto;
+            
+            .message-wrapper {
+                
+                padding: 0px 10px 10px 10px;
+
+                .message {
+                
+                    padding-top: 10px;
+                    
+                    .user-info {
+                        border-radius: 10px 10px 0px 0px;
+                        background-color: rgb(135, 141, 153);
+                        position: relative;
+                        padding: 10px 0px 10px 10px;
+                        width: calc(100% - 10px);
+                        
+                        .name {
+                            position: absolute;
+                            top: 23px;
+                            left: 70px;
+                            
+                            p {
+                                margin: 0;
+                            }
+                        }
+    
+                        .timestamp {
+                            position: absolute;
+                            top: 23px;
+                            right: 10px;
+                            
+                            p {
+                                margin: 0;
+                            }
+                        }
+                    }
+    
+                    .content {
+                        display: block;
+                        height: 100%;
+                        padding: 10px;
+                        border-radius: 0px 0px 10px 10px;
+                        background-color: rgb(161, 168, 182);
+    
+                        p {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
+            .chatbox-input {
+
+                position:sticky;
+                text-align: center;
+                bottom: 10px;
+                
+                input {
+                    height: 45px;
+                    width: calc(100% - 130px);
+                    border-width: 0;
+                    border-radius: 5px 0px 0px 5px;
+                    padding: 0px 15px 0px 15px;
+                    font-size: 14px;
+                    outline-style: none;
+                }
+
+                button {
+                    position: relative;
+                    width: 60px;
+                    height: 45px;
+                    padding-top: 2px;
+                    border-width: 0;
+                    border-radius: 0px 5px 5px 0px;
+                }
+
+            }
+        }
+    }
+}
+

@@ -4,7 +4,7 @@ const Login = () => {
     return (
         <div className='register-container'>
             <div className='register-wrapper'>
-                <span className='title'>Atomus</span>
+                <span className='title'>Bolt</span>
                 <span className='sub-title'>Sign in</span>
                 <form>
                     <input type='text' placeholder='Username'></input>
