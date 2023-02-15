@@ -226,7 +226,7 @@ body {
                                     display: inline-block;
                                     top: 5px;
                                     right: 70px;
-                                    font-size: 16px;
+                                    font-size: 15px;
                                     font-weight: bold;
                                     color: rgb(255, 255, 255);  
                                 }
@@ -256,17 +256,13 @@ body {
                             }
 
                             .unread {
-                                float: right;
-                                width: 25px;
-                                height: 25px;
-
-                                i {
-                                    position: relative;
-                                    left: 117px;
-                                    bottom: 8px;
-                                    font-size: 24px;
-                                    color: rgb(131, 77, 77);
-                                }
+                                position: inherit;
+                                margin-top: 10px;
+                                margin-left: calc(100% - 20px);
+                                width: 10px;
+                                height: 10px;
+                                border-radius: 5px;
+                                background-color: rgb(201, 110, 24);
                             }
                         }
                     }
@@ -276,41 +272,49 @@ body {
         
         .chatbox-container {
             flex: 2;
-            overflow: auto;
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-thumb {
+               background: #7c7c7c;
+               border-radius: 4px; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #a1a1a1; 
+            }
             
             .message-wrapper {
-                
+                overflow: auto;
+                height: calc(100% - 65px);
                 padding: 0px 10px 10px 10px;
-
-                .message {
                 
+                .message {
                     padding-top: 10px;
                     
                     .user-info {
                         border-radius: 10px 10px 0px 0px;
-                        background-color: rgb(135, 141, 153);
+                        background-color: rgb(161, 168, 182);
+                        border-bottom: 1px solid rgb(134, 140, 151);
+                        
                         position: relative;
-                        padding: 10px 0px 10px 10px;
+                        padding: 5px 0px 0px 10px;
                         width: calc(100% - 10px);
                         
                         .name {
                             position: absolute;
-                            top: 23px;
+                            top: 10px;
                             left: 70px;
-                            
-                            p {
-                                margin: 0;
-                            }
+                            font-size: 16px;
+                            font-weight: bold;
+                           
                         }
     
                         .timestamp {
                             position: absolute;
-                            top: 23px;
-                            right: 10px;
+                            top: 30px;
+                            left: 70px;
+                            font-size: 14px;
                             
-                            p {
-                                margin: 0;
-                            }
                         }
                     }
     
@@ -320,37 +324,43 @@ body {
                         padding: 10px;
                         border-radius: 0px 0px 10px 10px;
                         background-color: rgb(161, 168, 182);
-    
-                        p {
-                            margin: 0;
-                        }
                     }
                 }
             }
 
             .chatbox-input {
-
-                position:sticky;
-                text-align: center;
-                bottom: 10px;
+                
+                display: flex;
+                padding: 10px 0px 10px 10px;
+                background-color: rgb(255, 255, 255);
+                height: 35px;
+                align-items: center;
+                justify-content: space-between;
                 
                 input {
-                    height: 45px;
-                    width: calc(100% - 130px);
-                    border-width: 0;
-                    border-radius: 5px 0px 0px 5px;
-                    padding: 0px 15px 0px 15px;
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    outline: none;
                     font-size: 14px;
-                    outline-style: none;
                 }
 
                 button {
-                    position: relative;
-                    width: 60px;
-                    height: 45px;
-                    padding-top: 2px;
-                    border-width: 0;
-                    border-radius: 0px 5px 5px 0px;
+                    border: none;
+                    margin-right: 5px;
+                    background-color: white;
+                    transition-duration: 0.125s;
+                    font-size: 30px;
+                    padding-top: 10px;
+                    color: rgb(81, 101, 163);
+
+                    &:hover {
+                        color: rgb(107, 134, 214);
+                    }
+
+                    &:active {
+                        color: rgb(93, 117, 187);
+                    }
                 }
 
             }

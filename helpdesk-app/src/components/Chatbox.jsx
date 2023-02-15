@@ -17,7 +17,7 @@ const Chatbox = () => {
             </div>
             <div className='chatbox-input'>
                 <input type="text" placeholder='Type a message'></input>
-                <button>Send</button>
+                <button><i class="fi fi-ss-paper-plane"></i></button>
             </div>
         </div>
         

@@ -14,9 +14,7 @@ const Chats = () => {
                 <div className="status">
                     <span className="userStatus"><span className="statusCircle"></span> Online</span>
                 </div>
-                <div className="unread">
-                    <i class="fi fi-bs-envelope"></i>
-                </div>
+                <div className="unread"></div>
             </div>
         </div>
     )
