@@ -9,7 +9,7 @@ const Chats = () => {
                     <img src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png" alt="User" width={45} height={45}></img>
                 </div>
                 <div className="name">
-                    <span className="username">Joe Bob</span>
+                    <span className="username">Help-desk Agent</span>
                 </div>
                 <div className="status">
                     <span className="userStatus"><span className="statusCircle"></span> Online</span>

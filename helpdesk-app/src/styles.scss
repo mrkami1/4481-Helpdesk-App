@@ -106,7 +106,6 @@ body {
                 top: 3px;
                 left: 40px;
             }
-    
         }
 
         .menu {
@@ -204,7 +203,7 @@ body {
                             width: calc(100% - 10px);
                             border-radius: 5px;
                             background-color: rgb(61, 63, 75);
-                            overflow-x: hidden;
+                            padding-bottom: 5px;
                             
                             .picture {
                                 float: left;
@@ -235,6 +234,7 @@ body {
                             .status {
                                 float: right;
                                 width: 50%;
+                                padding: 1px;
                                 
                                 .userStatus {
                                     display: inline-block;
@@ -242,6 +242,7 @@ body {
                                     right: 70px;
                                     top: 5px;
                                     color: #888888;
+                                    font-size: 14px;
                                     
                                     .statusCircle {
                                         display: inline-block;
@@ -293,9 +294,7 @@ body {
                     
                     .user-info {
                         border-radius: 10px 10px 0px 0px;
-                        background-color: rgb(161, 168, 182);
-                        border-bottom: 1px solid rgb(134, 140, 151);
-                        
+                        background: none;
                         position: relative;
                         padding: 5px 0px 0px 10px;
                         width: calc(100% - 10px);
@@ -306,7 +305,7 @@ body {
                             left: 70px;
                             font-size: 16px;
                             font-weight: bold;
-                           
+                            color: white;
                         }
     
                         .timestamp {
@@ -314,7 +313,7 @@ body {
                             top: 30px;
                             left: 70px;
                             font-size: 14px;
-                            
+                            color: white;
                         }
                     }
     
@@ -322,8 +321,9 @@ body {
                         display: block;
                         height: 100%;
                         padding: 10px;
-                        border-radius: 0px 0px 10px 10px;
-                        background-color: rgb(161, 168, 182);
+                        border-bottom: 1px solid rgb(88, 90, 100);
+                        background-color: none;
+                        color: lightgray;
                     }
                 }
             }
@@ -362,7 +362,6 @@ body {
                         color: rgb(93, 117, 187);
                     }
                 }
-
             }
         }
     }

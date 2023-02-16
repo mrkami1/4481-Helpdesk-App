@@ -5,7 +5,7 @@ const Message = () => {
         <div className='message'>
             <div className="user-info">
                 <img src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png" alt="Icon" width={45} height={45}></img>
-                <div className='name'>Joe Bob Man Guy</div>
+                <div className='name'>Username</div>
                 <div className='timestamp'>1/2/2023 12:30PM</div>
                 
             </div>
