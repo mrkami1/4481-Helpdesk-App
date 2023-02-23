@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { signOut } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { AuthContext } from '../context/AuthContext'
@@ -13,6 +13,20 @@ const Navbar = () => {
         username = 'Anonymous ' + '(' + currentUser.uid + ')';
     }
     else username = currentUser.displayName;
+
+    useEffect(() => {
+        const handleTabClose = (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+            return '';
+        }
+        
+        window.addEventListener('beforeunload', handleTabClose)
+
+        return () => {
+            window.removeEventListener('beforeunload', handleTabClose)
+        }
+    }, [])
 
     async function logOut() {
         await updateDoc(doc(db, 'users', currentUser.uid), {

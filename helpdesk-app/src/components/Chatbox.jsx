@@ -9,7 +9,6 @@ import { uuidv4 } from '@firebase/util';
 const Chatbox = () => {
 
     const [messages, setMessages] = useState([]); 
-    const [showDialog, setShowDialog] = useState(false); 
     const {currentUser} = useContext(AuthContext);
     const {data} = useContext(ChatContext);
     const messageText = React.useRef();
@@ -58,7 +57,7 @@ const Chatbox = () => {
                     {
                         data.user.userType == 'agent' ? data.user.firstName + ' ' + data.user.lastName :
                         data.user.userType == 'anonymous' ? 'Anonymous User (' + data.user.userID + ')' :
-                        'Messages'
+                        'Select a Chat'
                     }
                 </div>
                 <div className='message-wrapper'>

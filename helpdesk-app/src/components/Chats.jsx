@@ -3,7 +3,6 @@ import { onSnapshot, collection, query, where, doc, setDoc, getDoc } from "fireb
 import { db } from "../firebase";
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext'
-import TransferDialog from "./TransferDialog";
 
 const Chats = (props) => {
 
@@ -11,7 +10,6 @@ const Chats = (props) => {
     const {dispatch} = useContext(ChatContext);
 
     const [users, setUsers] = useState([]);
-    const [dialog, setDialog] = useState(false)
 
     const anonIcon = "https://cdn-icons-png.flaticon.com/512/5595/5595500.png";
     const userIcon = "https://cdn-icons-png.flaticon.com/512/8748/8748111.png";
@@ -25,7 +23,7 @@ const Chats = (props) => {
                 querySnapshot.forEach((doc) => {
                     let userData = doc.data();
                     if (userData.userID == currentUser.uid) currentUserData = userData;
-                    if (currentUser.isAnonymous && userData.userType == 'agent') {
+                    if (currentUser.isAnonymous && userData.userType == 'agent' && userData.assignedUser == currentUser.uid) {
                         userArray.push(userData);
                     }
                     else if (!currentUser.isAnonymous && userData.userID !== currentUser.uid) {
@@ -43,7 +41,6 @@ const Chats = (props) => {
         currentUser.uid && getUsers();
         
     }, [currentUser.uid]);
-    //console.log(Object.entries(users));
 
     const openChat = async (usr, e) => {
         const chatID = currentUser.uid > usr.userID ? currentUser.uid + usr.userID : usr.userID + currentUser.uid;
@@ -66,8 +63,6 @@ const Chats = (props) => {
         }
     }
 
-    
-
     return (
         <>
             <div className="chats">
@@ -82,7 +77,11 @@ const Chats = (props) => {
                                 {user[1].userType == 'agent' ? user[1].firstName + ' ' + user[1].lastName : 'Anonymous User ' + '(' + user[1].userID + ')' }
                             </span>
                         </div>
-                        {user[1].userType == 'anonymous' && <button className="transfer-button" onClick={() => props.setDialog(true)}>Transfer</button>}
+                        {
+                            user[1].userType == 'anonymous' && 
+                            <button className="transfer-button" 
+                            onClick={() => {props.setDialog(true); props.setTransferUser(user[1])}}>Transfer</button>
+                        }
                     </div>
                 ))}
             </div>
