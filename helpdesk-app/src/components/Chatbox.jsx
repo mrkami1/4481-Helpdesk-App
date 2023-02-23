@@ -61,9 +61,9 @@ const Chatbox = () => {
                     }
                 </div>
                 <div className='message-wrapper'>
-                    {messages.map((msg) => (
-                        <Message message={msg} key={msg.id} />
-                        ))}
+                    {
+                        messages.map((msg) => (<Message message={msg} key={msg.id} />))
+                    }
                 </div>
                 <div className='chatbox-input'>
                     <input type="text" placeholder='Type a message' ref={messageText} onKeyDown={inputEnter}></input>

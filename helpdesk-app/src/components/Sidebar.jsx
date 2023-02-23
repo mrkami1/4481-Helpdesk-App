@@ -65,6 +65,12 @@ const Sidebar = (props) => {
                 assignedUser: transferUser.userID,
             })
         })
+        .then(async () => {
+            //set current assigned user to none
+            await updateDoc(doc(db, 'users', currentUser.uid), {
+                assignedUser: null,
+            })
+        })
         
     }
     

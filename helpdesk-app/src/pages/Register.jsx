@@ -36,8 +36,6 @@ const Register = () => {
                 email,
             });
 
-            await setDoc(doc(db, "user_chats", response.user.uid), {});
-
             await updateProfile(response.user, {
                 displayName: firstName + ' ' + lastName
             }).then((res) => {
