@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { auth, db } from '../firebase'
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc, where, query, collection, getDocs } from 'firebase/firestore';
 import { signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -28,6 +28,32 @@ const Login = () => {
         });
     }
 
+    async function assignAgent(res) {
+        const q = query(collection(db, 'users'), where('userStatus', '==', 'online'), where('userType', '==', 'agent'));
+        const agentsArray = [];
+        console.log(res)
+        await getDocs(q)
+        .then((data) => {
+            data.forEach((doc) => {
+                agentsArray.push(doc.data());
+            })      
+        })
+        .then(async () => {
+            console.log(agentsArray)
+            
+            await updateDoc(doc(db, 'users', res.user.uid), {
+                assignedAgent: agentsArray[0].userID,
+            })
+            await updateDoc(doc(db, 'users', agentsArray[0].userID), {
+                assignedUser: res.user.uid,
+            })
+            
+        })
+        .then(() => {
+            navigate('/')
+        })
+    }
+
     const submit = async (e) => {
         e.preventDefault();
         const email = e.target[0].value;
@@ -47,11 +73,15 @@ const Login = () => {
     const submitAnon = async (e) => {
         e.preventDefault();
         try {
+            let response = null;
             await signInAnonymously(auth)
             .then((res) => {
                 console.log(res);
+                response = res;
                 updateAnonStatus(res);
-                navigate('/')
+            })
+            .then(() => {
+                assignAgent(response);
             })
         }
         catch (error) {
