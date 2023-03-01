@@ -13,3 +13,8 @@ Before you install the application, your system must meet the following prerequi
 3. Navigate to the **4481-Helpdesk-App-main\helpdesk-app** directory in your terminal
 4. Run the command **npm start**
 5. The url **localhost:3000** should now be accessible and you should be greeted with the login page
+
+## How to use the application locally
+1. Use different browsers for each user
+2. Or use the private/incognito modes on your browser 
+3. Or do both at the same time
