@@ -11,9 +11,14 @@ Before you install the application, your system must meet the following prerequi
 1. Download the repository's zip file
 2. Extract it to any location
 3. Navigate to the **4481-Helpdesk-App-main\helpdesk-app** directory in your terminal
-4. Run the command **npm install firebase**
-5. Run the command **npm start**
-6. The url **localhost:3000** should now be accessible and you should be greeted with the login page
+
+### The following commands may be required to run the application:
+1. Run the command **npm i**
+2. Run the command **npm install firebase**
+
+Run the command **npm start** to start the application.
+
+Finally the url **localhost:3000** should now be accessible and you should be greeted with the login page
 
 ## How to use the application locally
 1. Use different browsers for each user
