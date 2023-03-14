@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { onSnapshot, collection, query, where, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from '../context/AuthContext'
@@ -22,8 +22,8 @@ const Chats = (props) => {
                 let currentUserData = null;
                 querySnapshot.forEach((doc) => {
                     let userData = doc.data();
-                    if (userData.userID == currentUser.uid) currentUserData = userData;
-                    if (currentUser.isAnonymous && userData.userType == 'agent' && userData.assignedUser == currentUser.uid) {
+                    if (userData.userID === currentUser.uid) currentUserData = userData;
+                    if (currentUser.isAnonymous && userData.userType === 'agent' && userData.assignedUser === currentUser.uid) {
                         userArray.push(userData);
                     }
                     else if (!currentUser.isAnonymous && userData.userID !== currentUser.uid) {
@@ -44,11 +44,11 @@ const Chats = (props) => {
 
     const openChat = async (usr, e) => {
         const chatID = currentUser.uid > usr.userID ? currentUser.uid + usr.userID : usr.userID + currentUser.uid;
-        if (e.target.className != 'transfer-button') {
+        if (e.target.className !== 'transfer-button') {
             try {
                 const response = await getDoc(doc(db, 'chats', chatID));
 
-                if (!response.exists() && usr.userID != currentUser.uid) {
+                if (!response.exists() && usr.userID !== currentUser.uid) {
                     await setDoc(doc(db, 'chats', chatID), {messages: []})
                     .then(() => {
                         console.log("created new convo");
@@ -70,15 +70,15 @@ const Chats = (props) => {
                 {Object.entries(users)?.map((user) => (
                     <div className="user-chat" key={user[1].userID} onClick={(e) => {openChat(user[1], e)}}>
                         <div className="picture">
-                            <img src={user[1].userType == 'agent' ? userIcon : anonIcon} alt="User" width={45} height={45}></img>
+                            <img src={user[1].userType === 'agent' ? userIcon : anonIcon} alt="User" width={45} height={45}></img>
                         </div>
                         <div className="name">
                             <span className="username">
-                                {user[1].userType == 'agent' ? user[1].firstName + ' ' + user[1].lastName : 'Anonymous User ' + '(' + user[1].userID + ')' }
+                                {user[1].userType === 'agent' ? user[1].firstName + ' ' + user[1].lastName : 'Anonymous User ' + '(' + user[1].userID + ')' }
                             </span>
                         </div>
                         {
-                            user[1].userType == 'anonymous' && 
+                            user[1].userType === 'anonymous' && 
                             <button className="transfer-button" 
                             onClick={() => {props.setDialog(true); props.setTransferUser(user[1])}}>Transfer</button>
                         }

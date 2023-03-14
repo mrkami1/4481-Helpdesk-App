@@ -435,7 +435,7 @@ body {
             .chatbox-input {
 
                 display: flex;
-                margin: 0px 0px 10px 10px;
+                margin: 0px 10px 0px 10px;
                 background-color: rgba(0, 0, 0, 0);
 
                 height: 42px;
@@ -465,7 +465,8 @@ body {
                     transition-duration: 0.125s;
                     font-size: 24px;
                     padding-top: 6px;
-                    padding-right: 10px;
+                    padding-right: 5px;
+                    padding-left: 10px;
                     color: rgb(81, 101, 163);
 
                     &:hover {

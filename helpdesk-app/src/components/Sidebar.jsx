@@ -22,12 +22,6 @@ const Sidebar = (props) => {
         //1 = anonymous users only
         //2 = all users
         view = (view + 1) % 3;
-
-        switch(view) {
-            case 0: console.log("agents only"); break;
-            case 1: console.log("anon only"); break;
-            case 2: console.log("all"); break;
-        }
     }
 
     const getAgent = async (e) => {

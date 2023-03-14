@@ -17,7 +17,7 @@ const Message = ({message}) => {
     console.log(data);
 
     const otherID = data.user.userID;
-    const otherAnon = data.user.userType == 'anonymous';
+    const otherAnon = data.user.userType === 'anonymous';
     const otherFirst = data.user.firstName;
     const otherLast = data.user.lastName;
     const myID = currentUser.uid;
@@ -32,8 +32,8 @@ const Message = ({message}) => {
             <div className="user-info">
                 <img src=
                     {
-                        myID == senderID && !amAnon ? userIcon : 
-                        myID == senderID && amAnon ? anonIcon :
+                        myID === senderID && !amAnon ? userIcon : 
+                        myID === senderID && amAnon ? anonIcon :
                         otherAnon ? anonIcon : 
                         !otherAnon ? userIcon : defaultIcon 
                     } 
@@ -41,8 +41,8 @@ const Message = ({message}) => {
                 </img>
                 <div className='name'>
                     { 
-                        myID == senderID && !amAnon ? currentUser.displayName : 
-                        myID == senderID && amAnon ? 'Anonymous (' + myID + ')' :
+                        myID === senderID && !amAnon ? currentUser.displayName : 
+                        myID === senderID && amAnon ? 'Anonymous (' + myID + ')' :
                         otherAnon ? 'Anonymous (' + otherID + ')' : 
                         otherFirst + ' ' + otherLast 
                     }
