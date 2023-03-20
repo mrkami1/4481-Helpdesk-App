@@ -48,7 +48,10 @@ const Chatbox = () => {
     }
 
     const handleUpload = (e) => {
-        console.log(e.target.files);
+        console.log();
+        const file = e.target.files[0];
+        if (!file) alert("Select a file to upload");
+        else setFile(e.target.files[0]);
     }
 
     useEffect(() => {
@@ -80,7 +83,7 @@ const Chatbox = () => {
                     <input type="text" placeholder='Type a message' ref={messageText} onKeyDown={inputEnter}></input>
                     <button onClick={inputClick}><i className="fi fi-ss-paper-plane"></i></button>
                     <button onClick={uploadClick}><i className="fi fi-sr-add-document"></i></button>
-                    <input type="file" ref={fileRef} onChange={handleUpload} style={{display: 'none'}}/>
+                    <input type="file" accept=".png,.jpeg,.jpg,.gif" ref={fileRef} onChange={handleUpload} style={{display: 'none'}}/>
                 </div>
             </div>
         </>

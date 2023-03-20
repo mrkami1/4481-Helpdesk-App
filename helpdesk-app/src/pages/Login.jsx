@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Login = () => {
 
     const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState();
     const navigate = useNavigate();
     const userStatus = 'online';
 
@@ -59,6 +60,12 @@ const Login = () => {
         const email = e.target[0].value;
         const password = e.target[1].value;
 
+        if (email.length < 1 || password.length < 1) {
+            setErrorMsg('Enter an email and password')
+            setError(true);
+            return;
+        }
+
         try {
             const response = await signInWithEmailAndPassword(auth, email, password);
             updateStatus(response);
@@ -66,6 +73,7 @@ const Login = () => {
         }
         catch (error) {
             console.log(error);
+            setErrorMsg('Invalid email/password or an error occurred')
             setError(true);
         }
     }
@@ -97,7 +105,7 @@ const Login = () => {
                 <form onSubmit={submit}>
                     <input type='email' placeholder='Email'></input>
                     <input type='password' placeholder='Password'></input>
-                    {error && <span style={{color: 'rgb(200,100,100)', fontSize: 14 + 'px', textAlign: 'center'}}>Invalid Email and or Password</span>}
+                    {error && <span style={{color: 'rgb(200,100,100)', fontSize: 14 + 'px'}}>{errorMsg}</span>}
                     <button type='submit'>Sign in</button>
                 </form>
                 <form onSubmit={submitAnon}>
