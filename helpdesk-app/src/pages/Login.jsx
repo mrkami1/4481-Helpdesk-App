@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { auth, db } from '../firebase'
 import { doc, setDoc, updateDoc, where, query, collection, getDocs } from 'firebase/firestore';
-import { signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
+import { browserSessionPersistence, setPersistence, signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -67,9 +67,16 @@ const Login = () => {
         }
 
         try {
-            const response = await signInWithEmailAndPassword(auth, email, password);
-            updateStatus(response);
-            navigate('/')
+            setPersistence(auth, browserSessionPersistence)
+            .then(async () => {
+                const response = await signInWithEmailAndPassword(auth, email, password);
+                updateStatus(response);
+                navigate('/');
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+            
         }
         catch (error) {
             console.log(error);
@@ -82,14 +89,20 @@ const Login = () => {
         e.preventDefault();
         try {
             let response = null;
-            await signInAnonymously(auth)
-            .then((res) => {
-                console.log(res);
-                response = res;
-                updateAnonStatus(res);
+            setPersistence(auth, browserSessionPersistence)
+            .then(async () => {
+                await signInAnonymously(auth)
+                .then((res) => {
+                    console.log(res);
+                    response = res;
+                    updateAnonStatus(res);
+                })
+                .then(() => {
+                    assignAgent(response);
+                })
             })
-            .then(() => {
-                assignAgent(response);
+            .catch((error) => {
+                console.log(error)
             })
         }
         catch (error) {

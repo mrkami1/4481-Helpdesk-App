@@ -4,6 +4,7 @@ import { db } from "../firebase";
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext';
 import { arrayUnion, updateDoc, doc, Timestamp, onSnapshot} from 'firebase/firestore';
+import { getStorage, ref } from 'firebase/storage'
 import { uuidv4 } from '@firebase/util';
 
 const Chatbox = () => {
@@ -14,6 +15,7 @@ const Chatbox = () => {
     const {data} = useContext(ChatContext);
     const messageText = React.useRef();
     const fileRef = React.useRef();
+    const storage = getStorage();
 
     const inputEnter = (event) => {
         if (event.key === 'Enter') {
@@ -50,8 +52,12 @@ const Chatbox = () => {
     const handleUpload = (e) => {
         console.log();
         const file = e.target.files[0];
-        if (!file) alert("Select a file to upload");
-        else setFile(e.target.files[0]);
+        if (!file) {
+            alert("Select a file to upload");
+            return;
+        }
+        
+        setFile(e.target.files[0]);
     }
 
     useEffect(() => {
