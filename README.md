@@ -5,22 +5,23 @@ A Help-desk Web Application made for allowing anonymous users and help-desk agen
 Before you install the application, your system must meet the following prerequisites:
 
 1. **Node.js v18.12.1** or newer must be installed
-2. Any modern web browser that has JavaScript support (e.g. Google Chrome, Mozilla Firefox)
+2. **git** command line must be installed
+3. Any modern web browser that has JavaScript support (e.g. Google Chrome, Mozilla Firefox)
 
 ## Setup
-1. Download the repository's zip file
-2. Extract it to any location
-3. Navigate to the **4481-Helpdesk-App-main\helpdesk-app** directory in your terminal
+1. Run **git clone https://github.com/mrkami1/4481-Helpdesk-App.git** in any directory
+2. Navigate to the **4481-Helpdesk-App-main\helpdesk-app** directory in your terminal
 
-### The following commands may be required to run the application:
-1. Run the command **npm i**
-2. Run the command **npm install firebase**
+### Some or all of the following packages might need to be installed:
+1. **npm i**
+2. **npm install firebase**
+3. **npm install @mui/material @emotion/react @emotion/styled**
 
 Run the command **npm start** to start the application.
 
 Finally the url **localhost:3000** should now be accessible and you should be greeted with the login page
 
 ## How to use the application locally
-1. Use different browsers for each user
-2. Or use the private/incognito modes on your browser 
-3. Or do both at the same time
+1. Use separate tabs for each user
+2. Use different browsers for each user
+3. Use the private/incognito modes on your browser 
