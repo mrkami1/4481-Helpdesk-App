@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, browserSessionPersistence, setPersistence } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
@@ -45,31 +45,39 @@ const Register = () => {
         }
 
         try {
-            const response = await createUserWithEmailAndPassword(auth, email, password)
-            console.log(response);
-            const userType = 'agent';
-            const userID = response.user.uid;
-            await setDoc(doc(db, 'users', response.user.uid), {
-                userID,
-                userType,
-                userStatus,
-                firstName,
-                lastName,
-                email,
-            });
+            setPersistence(auth, browserSessionPersistence)
+            .then(async () => {
+                const response = await createUserWithEmailAndPassword(auth, email, password);
+                console.log(response);
+                const userType = 'agent';
+                const userID = response.user.uid;
+                const assignedUsers = [];
+                await setDoc(doc(db, 'users', response.user.uid), {
+                    userID,
+                    userType,
+                    userStatus,
+                    firstName,
+                    lastName,
+                    email,
+                    assignedUsers,
+                });
 
-            await updateProfile(response.user, {
-                displayName: firstName + ' ' + lastName
-            }).then((res) => {
-                console.log(res);
-            }).catch((error) => {
-                console.log(error);
-                setError(true);
-                setErrorMsg('Profile update had an error');
-                return;
+                await updateProfile(response.user, {
+                    displayName: firstName + ' ' + lastName
+                }).then((res) => {
+                    console.log(res);
+                }).catch((error) => {
+                    console.log(error);
+                    setError(true);
+                    setErrorMsg('Profile update had an error');
+                    return;
+                })
+
+                navigate('/login');
             })
-
-            navigate('/');
+            .catch((error) => {
+                console.log(error)
+            })
         }
         catch (error) {
             console.log(error);

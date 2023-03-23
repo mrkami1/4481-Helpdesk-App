@@ -11,6 +11,7 @@ const Login = () => {
     const [errorMsg, setErrorMsg] = useState();
     const navigate = useNavigate();
     const userStatus = 'online';
+    const assignedAgent = '';
 
     async function updateAnonStatus(response) {
         const userType = 'anonymous';
@@ -20,6 +21,7 @@ const Login = () => {
             userID,
             userType,
             userStatus,
+            assignedAgent,
         });
     }
 
@@ -41,14 +43,22 @@ const Login = () => {
         })
         .then(async () => {
             console.log(agentsArray)
-            
-            await updateDoc(doc(db, 'users', res.user.uid), {
-                assignedAgent: agentsArray[0].userID,
-            })
-            await updateDoc(doc(db, 'users', agentsArray[0].userID), {
-                assignedUser: res.user.uid,
-            })
-            
+            if (agentsArray.length > 0) {
+                let agentLeastUsers = agentsArray[0];
+                for (let i = 0; i < agentsArray.length; i++) {
+                    if (agentsArray[i].assignedUsers.length < agentLeastUsers.assignedUsers.length) {
+                        agentLeastUsers = agentsArray[i];
+                    }
+                }
+                console.log(agentLeastUsers);
+                agentLeastUsers.assignedUsers.push(res.user.uid)
+                await updateDoc(doc(db, 'users', res.user.uid), {
+                    assignedAgent: agentsArray[0].userID,
+                })
+                await updateDoc(doc(db, 'users', agentLeastUsers.userID), {
+                    assignedUsers: agentLeastUsers.assignedUsers,
+                })
+            }
         })
         .then(() => {
             navigate('/')

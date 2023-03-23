@@ -12,7 +12,7 @@ const Navbar = () => {
     if (currentUser.isAnonymous) {
         username = 'Anonymous ' + '(' + currentUser.uid + ')';
     }
-    else username = currentUser.displayName;
+    else username = currentUser.displayName + ' (' + currentUser.uid + ')';
 
     useEffect(() => {
         const handleTabClose = (e) => {
