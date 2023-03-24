@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext'
 import { Timestamp, toDate } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
 
 const Message = ({message}) => {
 
@@ -12,9 +13,7 @@ const Message = ({message}) => {
     const userIcon = 'https://cdn-icons-png.flaticon.com/512/8748/8748111.png';
     const defaultIcon = 'https://cdn-icons-png.flaticon.com/512/1177/1177568.png';
 
-    console.log(currentUser);
-    console.log(message);
-    console.log(data);
+    //console.log(message);
 
     const otherID = data.user.userID;
     const otherAnon = data.user.userType === 'anonymous';
@@ -25,7 +24,6 @@ const Message = ({message}) => {
     const senderID = message.senderID;
     const receiverID = message.receiverID;
     const date = message.date.toDate().toDateString() + ' ' + message.date.toDate().toLocaleTimeString();
-    console.log(date);
 
     return (
         <div className='message'>
@@ -51,7 +49,8 @@ const Message = ({message}) => {
                 
             </div>
             <div className="content">
-                {message.content}
+                {message.content + ' '}
+                {message.link !== '' && <Link to={message.link} target={'_blank'} download={message.fileName}>{message.fileName}</Link>}
             </div>
         </div>
     )

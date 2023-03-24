@@ -15,8 +15,9 @@ const Chats = ({ setDialog }) => {
     const { dispatch } = useContext(ChatContext);
 
     const [users, setUsers] = useState([]);
+    const [totalUsers, setTotalUsers] = useState([]);
     const [end, setEnd] = useState({show: false, data: null}); //
-    const [currentData, setCurrentData] = useState(); // data for the current user
+    const [currentData, setCurrentData] = useState({}); // data for the current user
 
     const anonIcon = "https://cdn-icons-png.flaticon.com/512/5595/5595500.png";
     const userIcon = "https://cdn-icons-png.flaticon.com/512/8748/8748111.png";
@@ -26,8 +27,10 @@ const Chats = ({ setDialog }) => {
             const q = query(collection(db, "users"), where("userStatus", "==", "online"));
             const unsub = onSnapshot(q, (querySnapshot) => {
                 const userArray = [];
+                const totalUserArray = [];
                 querySnapshot.forEach((doc) => {
                     let userData = doc.data();
+                    totalUserArray.push(userData);
                     if (userData.userID === currentUser.uid) setCurrentData(userData);
                     // If the user is anonymous, only show the agents that have this user assigned to them
                     if (
@@ -42,7 +45,7 @@ const Chats = ({ setDialog }) => {
                         userArray.push(userData);
                     }
                 });
-
+                setTotalUsers(totalUserArray);
                 setUsers(userArray);
             });
 
@@ -51,7 +54,25 @@ const Chats = ({ setDialog }) => {
             };
         };
         currentUser.uid && getUsers();
-    }, [currentUser.uid]);
+    }, [currentUser.uid,]);
+
+    // If theres no agents logged in, and an anonymous user logs in, wait until an agent logs in and assign them to the user
+    useEffect(() => {
+        console.log(totalUsers)
+        for (let i = 0; i < totalUsers.length; i++) {
+            if (totalUsers[i].userType === 'agent' && currentUser.isAnonymous && currentData.assignedAgent === '') {
+                let newAssignedUsers = totalUsers[i].assignedUsers;
+                newAssignedUsers.push(currentUser.uid);
+                updateDoc(doc(db, 'users', currentUser.uid), {
+                    assignedAgent: totalUsers[i].userID,
+                })
+                updateDoc(doc(db, 'users', totalUsers[i].userID), {
+                    assignedUsers: newAssignedUsers,
+                })
+            }
+        }
+        
+    }, [totalUsers])
 
     const openChat = async (usr, e) => {
         const chatID =
@@ -121,7 +142,7 @@ const Chats = ({ setDialog }) => {
                                 : "Anonymous User " + "(" + user[1].userID + ")"}
                         </span>
                     </div>
-                    {user[1].userType === "anonymous" && currentData.assignedUsers.includes(user[1].userID) && (
+                    {user[1].userType === "anonymous" && currentData.assignedUsers?.includes(user[1].userID) && (
                         <button
                             className="transfer-button"
                             onClick={() => setDialog({ show: true, data: user[1] })}
@@ -129,7 +150,7 @@ const Chats = ({ setDialog }) => {
                             Transfer
                         </button>
                     )}
-                    {user[1].userType === "anonymous" && currentData.assignedUsers.includes(user[1].userID) && (
+                    {user[1].userType === "anonymous" && currentData.assignedUsers?.includes(user[1].userID) && (
                         <button className="endChat-button" onClick={() => setEnd({show: true, data: user[1]})}>
                             End chat
                         </button>

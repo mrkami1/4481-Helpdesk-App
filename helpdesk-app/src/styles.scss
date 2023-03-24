@@ -430,48 +430,60 @@ body {
                 color: white;
             }
 
-            .message-wrapper {
-                overflow: auto;
-                height: calc(100% - 115px);
+            .scroll-wrapper {
+                overflow:auto; 
+                flex-direction:column-reverse;
+                height: calc(100% - 125px);
                 padding: 0px 10px 10px 10px;
 
-                .message {
-                    padding-top: 10px;
-
-                    .user-info {
-                        border-radius: 10px 10px 0px 0px;
-                        background: none;
-                        position: relative;
-                        padding: 5px 0px 0px 10px;
-                        width: calc(100% - 10px);
-
-                        .name {
-                            position: absolute;
-                            top: 10px;
-                            left: 70px;
-                            font-size: 16px;
-                            font-weight: bold;
-                            color: white;
+                .message-wrapper {
+    
+                    .message {
+                        padding-top: 10px;
+    
+                        .user-info {
+                            border-radius: 10px 10px 0px 0px;
+                            background: none;
+                            position: relative;
+                            padding: 5px 0px 0px 10px;
+                            width: calc(100% - 10px);
+    
+                            .name {
+                                position: absolute;
+                                top: 10px;
+                                left: 70px;
+                                font-size: 16px;
+                                font-weight: bold;
+                                color: white;
+                            }
+    
+                            .timestamp {
+                                position: absolute;
+                                top: 30px;
+                                left: 70px;
+                                font-size: 14px;
+                                color: rgb(131, 131, 131);
+                            }
                         }
-
-                        .timestamp {
-                            position: absolute;
-                            top: 30px;
-                            left: 70px;
-                            font-size: 14px;
-                            color: rgb(131, 131, 131);
+    
+                        .content {
+                            display: block;
+                            height: 100%;
+                            padding: 10px;
+                            border-bottom: 1px solid rgb(88, 90, 100);
+                            background-color: none;
+                            color: lightgray;
+    
+                            a {
+                                color: rgb(52, 141, 214);
+                            }
                         }
-                    }
-
-                    .content {
-                        display: block;
-                        height: 100%;
-                        padding: 10px;
-                        border-bottom: 1px solid rgb(88, 90, 100);
-                        background-color: none;
-                        color: lightgray;
                     }
                 }
+            }
+
+            .upload-bar {
+                padding: 0px 88px 5px 10px;
             }
 
             .chatbox-input {
@@ -518,7 +530,9 @@ body {
                     &:active {
                         color: rgb(93, 117, 187);
                     }
-
+                    &:disabled {
+                        color: rgb(38, 48, 77);
+                    }
                 }
             }
         }
