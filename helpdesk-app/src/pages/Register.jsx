@@ -48,7 +48,6 @@ const Register = () => {
             setPersistence(auth, browserSessionPersistence)
             .then(async () => {
                 const response = await createUserWithEmailAndPassword(auth, email, password);
-                console.log(response);
                 const userType = 'agent';
                 const userID = response.user.uid;
                 const assignedUsers = [];
@@ -65,9 +64,7 @@ const Register = () => {
                 await updateProfile(response.user, {
                     displayName: firstName + ' ' + lastName
                 }).then((res) => {
-                    console.log(res);
                 }).catch((error) => {
-                    console.log(error);
                     setError(true);
                     setErrorMsg('Profile update had an error');
                     return;
@@ -76,11 +73,12 @@ const Register = () => {
                 navigate('/login');
             })
             .catch((error) => {
-                console.log(error)
+                setError(true);
+                setErrorMsg('Email already in use or there was an error');
+                return;
             })
         }
         catch (error) {
-            console.log(error);
             setError(true);
             setErrorMsg('Email already in use or there was an error');
         }

@@ -506,9 +506,16 @@ body {
                     padding-left: 10px;
                     background-color: rgb(78, 81, 95);
                     color: white;
-
+                    transition-duration: 0.1s;
+                    
                     &::placeholder {
                         color: rgb(128, 132, 156);
+                    }
+                    &:disabled {
+                        background-color: rgb(44, 46, 54);
+                        &::placeholder {
+                            color: rgb(35, 36, 43);
+                        }
                     }
                 }
 

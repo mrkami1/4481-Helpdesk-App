@@ -38,7 +38,6 @@ const Chatbox = () => {
 
     const sendMessage = async() => {
         const text = messageText.current.value;
-        console.log(text);
         
         await updateDoc(doc(db, 'chats', data.chatID), {
             messages: arrayUnion({
@@ -57,7 +56,6 @@ const Chatbox = () => {
     }
 
     const uploadClick = async () => {
-        console.log("upload");
         fileRef.current.click();
     }
 
@@ -65,7 +63,6 @@ const Chatbox = () => {
         const selectedFile = e.target.files[0];
         
         if (!selectedFile) {
-            console.log("choose a file")
             return;
         }
 
@@ -95,21 +92,16 @@ const Chatbox = () => {
             }
         },
         (error) => {
-            console.log(error)
             setUploadState('none');
             setAlert({type: 'error', message: 'File upload failed'});
         },
         () => {
             getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                console.log('file at ' + url)
                 setUploadState('none');
                 setOpenSnackbar(true);
                 setAlert({type: 'success', message: 'File upload completed'});
                 setUploadProgress(0);
                 setFile({name: selectedFile.name, url: url})
-            })
-            .then(() => {
-
             })
         })
     }
@@ -141,6 +133,15 @@ const Chatbox = () => {
         if (atBottom) messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [messages])
 
+    useEffect(() => {
+        let show = false;
+        if (!show) {
+            setAlert({type: 'info', message: 'Select a user from the list to begin!'})
+            setOpenSnackbar(true);
+        }
+        return () => { show = true; }
+    }, [])
+
     return (
         <>
             <div className='chatbox-container'>
@@ -161,13 +162,13 @@ const Chatbox = () => {
                     {uploadState === 'running' && <LinearProgress variant="determinate" value={uploadProgress} />}
                 </div>
                 <div className='chatbox-input'>
-                    <input type="text" placeholder='Type a message' ref={messageText} onKeyDown={inputEnter}></input>
+                    <input type="text" placeholder='Type a message' ref={messageText} onKeyDown={inputEnter} disabled={data.chatID === 'null'} ></input>
                     <button onClick={inputClick} disabled={data.chatID === 'null'}><i className="fi fi-ss-paper-plane"></i></button>
                     <button onClick={uploadClick} disabled={data.chatID === 'null'}><i className="fi fi-sr-add-document"></i></button>
                     <input type="file" ref={fileRef} onChange={handleUpload} onClick={(e) => e.target.value = null} style={{display: 'none'}}/>
                 </div>
             </div>
-            <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={closeSnackbar}>
+            <Snackbar open={openSnackbar} autoHideDuration={4000} onClose={closeSnackbar}>
                 <Alert onClose={closeSnackbar} severity={alert.type} sx={{ width: '100%' }}>
                     {alert.message}
                 </Alert>

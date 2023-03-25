@@ -58,7 +58,6 @@ const Chats = ({ setDialog }) => {
 
     // If theres no agents logged in, and an anonymous user logs in, wait until an agent logs in and assign them to the user
     useEffect(() => {
-        console.log(totalUsers)
         for (let i = 0; i < totalUsers.length; i++) {
             if (totalUsers[i].userType === 'agent' && currentUser.isAnonymous && currentData.assignedAgent === '') {
                 let newAssignedUsers = totalUsers[i].assignedUsers;
@@ -71,7 +70,6 @@ const Chats = ({ setDialog }) => {
                 })
             }
         }
-        
     }, [totalUsers])
 
     const openChat = async (usr, e) => {
@@ -85,7 +83,6 @@ const Chats = ({ setDialog }) => {
 
                 if (!response.exists() && usr.userID !== currentUser.uid) {
                     await setDoc(doc(db, "chats", chatID), { messages: [] }).then(() => {
-                        console.log("created new convo");
                         dispatch({ type: "change_user", payload: usr });
                     });
                 } else {
@@ -107,9 +104,6 @@ const Chats = ({ setDialog }) => {
 
         await updateDoc(doc(db, "users", currentUser.uid), {
             assignedUsers: a,
-        })
-        .then(() => {
-            console.log(a)
         })
     };
 

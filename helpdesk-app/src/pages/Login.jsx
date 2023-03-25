@@ -34,7 +34,6 @@ const Login = () => {
     async function assignAgent(res) {
         const q = query(collection(db, 'users'), where('userStatus', '==', 'online'), where('userType', '==', 'agent'));
         const agentsArray = [];
-        console.log(res)
         await getDocs(q)
         .then((data) => {
             data.forEach((doc) => {
@@ -42,7 +41,6 @@ const Login = () => {
             })      
         })
         .then(async () => {
-            console.log(agentsArray)
             if (agentsArray.length > 0) {
                 let agentLeastUsers = agentsArray[0];
                 for (let i = 0; i < agentsArray.length; i++) {
@@ -50,7 +48,6 @@ const Login = () => {
                         agentLeastUsers = agentsArray[i];
                     }
                 }
-                console.log(agentLeastUsers);
                 agentLeastUsers.assignedUsers.push(res.user.uid)
                 await updateDoc(doc(db, 'users', res.user.uid), {
                     assignedAgent: agentsArray[0].userID,
@@ -84,12 +81,13 @@ const Login = () => {
                 navigate('/');
             })
             .catch((error) => {
-                console.log(error)
+                setErrorMsg('Invalid email/password or an error occurred')
+                setError(true);
+                return;
             })
             
         }
         catch (error) {
-            console.log(error);
             setErrorMsg('Invalid email/password or an error occurred')
             setError(true);
         }
@@ -103,7 +101,6 @@ const Login = () => {
             .then(async () => {
                 await signInAnonymously(auth)
                 .then((res) => {
-                    console.log(res);
                     response = res;
                     updateAnonStatus(res);
                 })
@@ -112,11 +109,13 @@ const Login = () => {
                 })
             })
             .catch((error) => {
-                console.log(error)
+                setErrorMsg('Invalid email/password or an error occurred')
+                setError(true);
+                return;
             })
         }
         catch (error) {
-            console.log(error);
+            setErrorMsg('Invalid email/password or an error occurred')
             setError(true);
         }
     }
