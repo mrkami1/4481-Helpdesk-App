@@ -134,6 +134,7 @@ const Login = () => {
                     <button className='anon-signin' type='submit'>Anonymously Sign in</button>
                 </form>
                 <Link className='signin-instead' to={'/register'}>Sign up instead</Link>
+                <Link className='signin-instead' to={'/privacy'}>Privacy</Link>
             </div>
         </div>
     )

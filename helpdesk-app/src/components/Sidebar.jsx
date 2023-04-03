@@ -1,38 +1,59 @@
-import React, { useContext, useState } from "react";
-import Chats from './Chats'
-import { AuthContext } from '../context/AuthContext'
+import React, { useContext, useEffect, useState } from "react";
+import Chats from "./Chats";
+import { AuthContext } from "../context/AuthContext";
 
-const Sidebar = ({setDialog}) => {
+const Sidebar = ({ setDialog }) => {
+    const { currentUser } = useContext(AuthContext);
+    const [userView, setUserView] = useState(2);
+    const [viewText, setViewText] = useState("All");
+    let sidebarTitle = "Online Agents";
 
-    const {currentUser} = useContext(AuthContext);
-
-    let sidebarTitle = 'Online Agents';
-    let view = 0;
-
-    currentUser.isAnonymous ? sidebarTitle = "Assigned Agent" : sidebarTitle = "Online Users";
+    currentUser.isAnonymous ? (sidebarTitle = "Assigned Agent") : (sidebarTitle = "Online Users");
 
     function changeView() {
-        //0 = agents only
-        //1 = anonymous users only
-        //2 = all users
-        view = (view + 1) % 3;
+        setUserView((userView + 1) % 3);
     }
+
+    useEffect(() => {
+        switch (userView) {
+            case 0:
+                setViewText("Agents");
+                break;
+            case 1:
+                setViewText("Anon");
+                break;
+            case 2:
+                setViewText("All");
+                break;
+        }
+    }, [userView]);
 
     return (
         <>
-            <div className='sidebar'>
-                <div className='title-container'>
-                    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css' />
-                    <span>{sidebarTitle}{!currentUser.isAnonymous && <i className="fi fi-rr-settings-sliders" onClick={changeView}></i>}</span>
+            <div className="sidebar">
+                <div className="title-container">
+                    <link
+                        rel="stylesheet"
+                        href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+                    />
+                    <span>
+                        {sidebarTitle}
+                        {!currentUser.isAnonymous && (
+                            <>
+                                <span className="viewText">{viewText}</span>
+                                <i className="fi fi-rr-settings-sliders" onClick={changeView} />
+                            </>
+                        )}
+                    </span>
                 </div>
-                <div className='chats-container'>
-                    <div className='chats-wrapper'>
-                        <Chats setDialog={setDialog} />
+                <div className="chats-container">
+                    <div className="chats-wrapper">
+                        <Chats setDialog={setDialog} userView={userView} />
                     </div>
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Sidebar
+export default Sidebar;

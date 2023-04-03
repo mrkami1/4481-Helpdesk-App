@@ -297,6 +297,13 @@ body {
                     background-color: rgb(39, 40, 48);
                     border-radius: 5px;
 
+                    .viewText {
+                        display: inline-block;
+                        text-align: right;
+                        width: 130px;
+                        padding: 0;
+                    }
+
                     i {
                         font-size: 18px;
                         float: right;
@@ -543,5 +550,21 @@ body {
                 }
             }
         }
+    }
+}
+
+.privacy {
+    background-color: rgb(30, 31, 37);
+    color: rgb(201, 201, 201);
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 30px;
+    h1 {
+        margin: 0;
+    }
+
+    a {
+        color: rgb(52, 141, 214);
     }
 }

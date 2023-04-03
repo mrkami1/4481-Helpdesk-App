@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { onSnapshot, collection, query, where, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
@@ -10,12 +10,13 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const Chats = ({ setDialog }) => {
+const Chats = ({ setDialog, userView }) => {
     const { currentUser } = useContext(AuthContext);
     const { dispatch } = useContext(ChatContext);
 
     const [users, setUsers] = useState([]);
     const [totalUsers, setTotalUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([])
     const [end, setEnd] = useState({show: false, data: null}); //
     const [currentData, setCurrentData] = useState({}); // data for the current user
 
@@ -47,6 +48,7 @@ const Chats = ({ setDialog }) => {
                 });
                 setTotalUsers(totalUserArray);
                 setUsers(userArray);
+                setFilteredUsers(userArray);
             });
 
             return () => {
@@ -92,6 +94,19 @@ const Chats = ({ setDialog }) => {
         }
     };
 
+    useEffect(() => {
+        if (userView === 0) {
+            const filter = users.filter((user) => user.userType === "agent")
+            setFilteredUsers(filter);
+        }
+        else if (userView === 1) {
+            const filter = users.filter((user) => user.userType === "anonymous")
+            setFilteredUsers(filter);
+        }
+        else setFilteredUsers(users);
+    }, [userView])
+    
+    
     const endChat = async (e) => {
         setEnd({show: false, data: end.data});
         let a = currentData.assignedUsers;
@@ -113,7 +128,7 @@ const Chats = ({ setDialog }) => {
                 rel="stylesheet"
                 href="https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css"
             ></link>
-            {Object.entries(users)?.map((user) => (
+            {Object.entries(filteredUsers)?.map((user) => (
                 <div
                     className="user-chat"
                     key={user[1].userID}

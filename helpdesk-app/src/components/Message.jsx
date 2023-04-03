@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext'
-import { Timestamp, toDate } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 
 const Message = ({message}) => {
@@ -22,7 +21,6 @@ const Message = ({message}) => {
     const myID = currentUser.uid;
     const amAnon = currentUser.isAnonymous;
     const senderID = message.senderID;
-    const receiverID = message.receiverID;
     const date = message.date.toDate().toDateString() + ' ' + message.date.toDate().toLocaleTimeString();
 
     return (

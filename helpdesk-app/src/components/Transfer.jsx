@@ -1,9 +1,8 @@
-import React, { Component, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { db } from "../firebase";
 import { onSnapshot, collection, query, where, doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
-import { uuidv4 } from '@firebase/util';
 import { Snackbar, Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 const Transfer = ({ dialog, setDialog }) => {

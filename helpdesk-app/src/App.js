@@ -1,6 +1,7 @@
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Privacy from './pages/Privacy';
 import './styles.scss';
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -28,6 +29,7 @@ function App() {
                     } />
                     <Route path='Login' element={<Login />} />
                     <Route path='Register' element={<Register />} />
+                    <Route path='Privacy' element={<Privacy />} />
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -39,7 +39,7 @@ const Register = () => {
             const valid = regex.test(password);
             if (!valid) {
                 setError(true);
-                setErrorMsg('Passwords must be 8-20 characters long and contain at least one lower case, upper case, and special character (~!@#$%^&*)');
+                setErrorMsg('Passwords must be 8-20 characters long and contain at least one number, lower case, upper case, and special character (~!@#$%^&*)');
                 return;
             }
         }
@@ -99,6 +99,7 @@ const Register = () => {
                     {error && <span style={{color: 'rgb(200,100,100)', fontSize: 14 + 'px'}}>{errorMsg}</span>}
                 </form>
                 <Link className='signin-instead' to="/login">Sign in instead</Link>
+                <Link className='signin-instead' to={'/privacy'}>Privacy</Link>
             </div>
         </div>
     )

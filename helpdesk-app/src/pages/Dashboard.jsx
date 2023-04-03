@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Chatbox from '../components/Chatbox'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import Transfer from '../components/Transfer'
-import { AuthContext } from '../context/AuthContext'
 
 const Dashboard = () => {
 
