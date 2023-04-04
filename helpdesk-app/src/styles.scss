@@ -295,14 +295,6 @@ body {
                     font-weight: bold;
                     color: white;
                     background-color: rgb(39, 40, 48);
-                    border-radius: 5px;
-
-                    .viewText {
-                        display: inline-block;
-                        text-align: right;
-                        width: 130px;
-                        padding: 0;
-                    }
 
                     i {
                         font-size: 18px;
@@ -320,7 +312,7 @@ body {
 
             .chats-container {
                 width: 100%;
-                height: calc(100% - 54px);
+                height: calc(100% - 92px);
 
                 .chats-wrapper {
                     width: calc(100% - 20px);

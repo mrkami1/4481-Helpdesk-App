@@ -38,13 +38,12 @@ const Sidebar = ({ setDialog }) => {
                     />
                     <span>
                         {sidebarTitle}
-                        {!currentUser.isAnonymous && (
-                            <>
-                                <span className="viewText">{viewText}</span>
-                                <i className="fi fi-rr-settings-sliders" onClick={changeView} />
-                            </>
-                        )}
                     </span>
+                    <div className="filter-container">
+                        {!currentUser.isAnonymous && (
+                            <span>{viewText}<i className="fi fi-rr-settings-sliders" onClick={changeView} /></span>
+                        )}
+                    </div>
                 </div>
                 <div className="chats-container">
                     <div className="chats-wrapper">
